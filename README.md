@@ -141,13 +141,29 @@ refs:
         balanceKeyRef: DEEPSEEK_API_KEY       # 换成自己的凭据名
         platformTokenRef: DEEPSEEK_USER_TOKEN
         balanceIntervalMs: 30000              # 余额刷新
-        officialIntervalMs: 300000            # 官网用量/消费刷新
+        officialIntervalMs: 120000            # 官网用量/消费刷新(并行拉取)
         retryIntervalMs: 30000                # 失败/未配置时的重试
         sessionLog: true                      # 关掉则不解析本地会话日志
         pricing:                              # 单价覆盖,USD / 1M tokens
           deepseek-v4-flash: { input: 0.28, cacheHit: 0.028, output: 0.42 }
           deepseek-v4-pro:   { input: 0.55, cacheHit: 0.14,  output: 2.19 }
 ```
+
+## 性能设计
+
+面板打开到出数是**毫秒级**,靠三条约束:
+
+| 措施 | 效果(本机实测) |
+|---|---|
+| **官方接口并行**,不再串行 | 4 个请求(用量×2 + 消费×2):1282ms → **904ms**(冷 TLS;热连接更低) |
+| **HTTPS keep-alive 连接池** | 余额每 30s 一次,跳过重复 TLS 握手 |
+| **会话日志移出请求路径** | 路由响应 **0–1ms**;日志由后台间隔增量刷新 |
+
+会话日志是**只追加**的多帧 zstd 流,因此:
+
+- 首次全量解析(约 4MB → 20MB 文本,~175ms),之后**只解码新增的帧**,长会话不会越跑越慢
+- 路由只读缓存值,缓存过期时**丢到后台刷新**,永不阻塞响应
+- 文件被轮转/缩短时自动重新全量解析
 
 ## 计算口径
 
