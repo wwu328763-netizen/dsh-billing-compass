@@ -89,6 +89,23 @@ plugin_manager  action=install_bundle  target=<克隆下来的绝对路径>
 
 > 宿主的 JS 模块在进程内被缓存,**改代码或首次安装都必须重启**;客户端改动刷新页面即可。
 
+### 方式三:通过「插件市场 / Discover」添加
+
+本仓库自带一份 **format 1** 市场索引,加进任何人的插件市场即可看到并安装本插件:
+
+```
+https://raw.githubusercontent.com/wwu328763-netizen/dsh-billing-compass/main/market/index.json
+```
+
+1. 启用实验性市场 bundle `@deepseek-ai/dsh-experimental-plugin-market-bundle`(默认关闭)
+2. 设置 → 插件 → **Discover** → 添加索引,粘贴上面的地址
+3. 在本插件条目上点安装(底层是
+   `git+https://github.com/wwu328763-netizen/dsh-billing-compass.git#<commit>`)
+4. **重启 Harness**
+
+> DSH 目前**没有集中托管的官方市场**:market 只是一个"读索引"的客户端,索引谁托管都行。
+> 本仓库的 `market/index.json` 就是一份现成索引,你可以 fork 后维护自己的索引。
+
 ## 配置凭据
 
 两个键写在 `<DSH_HOME>/.credentials.yaml`,或用同名环境变量。

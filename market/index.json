@@ -1,0 +1,61 @@
+{
+  "format": 1,
+  "title": {
+    "en": "DSH community market",
+    "zh": "DSH 社区插件市场"
+  },
+  "description": {
+    "en": "A hand-curated index of community bundles for DeepSeek Harness. Add this URL under Settings → Plugins → Discover (plugin market) to browse and install them.",
+    "zh": "手工维护的 DeepSeek Harness 社区插件索引。在 设置 → 插件 → Discover(插件市场)里添加本地址,即可浏览并安装。"
+  },
+  "metadata": {
+    "categories": {
+      "observability": {
+        "title": { "en": "Usage & billing", "zh": "用量与账单" }
+      }
+    },
+    "labels": {
+      "official-data": {
+        "title": { "en": "Official data source", "zh": "官方数据源" }
+      },
+      "zero-dependency": {
+        "title": { "en": "Zero dependency", "zh": "零依赖" }
+      }
+    }
+  },
+  "plugins": [
+    {
+      "name": "dsh-billing-compass",
+      "title": {
+        "en": "Billing Compass",
+        "zh": "计费罗盘"
+      },
+      "description": {
+        "en": "DeepSeek balance, official usage and spend per model, plus a live cost estimate, in a popover above the composer.",
+        "zh": "在输入框上方弹出面板,显示 DeepSeek 余额、官网各模型用量与消费,以及本次运行的实时费用估算。"
+      },
+      "icon": "icon.svg",
+      "author": "wwu328763-netizen",
+      "homepage": "https://github.com/wwu328763-netizen/dsh-billing-compass",
+      "repository": {
+        "url": "https://github.com/wwu328763-netizen/dsh-billing-compass"
+      },
+      "metadata": {
+        "category": "observability",
+        "keywords": ["deepseek", "billing", "usage", "cost", "balance", "tokens"],
+        "labels": ["official-data", "zero-dependency"]
+      },
+      "versions": [
+        {
+          "version": "1.0.0",
+          "publishTimestamp": 1792963853,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/wwu328763-netizen/dsh-billing-compass",
+            "commit": "69f07e95c13598a918848daf6db6138e97dcd300"
+          }
+        }
+      ]
+    }
+  ]
+}
