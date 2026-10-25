@@ -1,4 +1,4 @@
-<div align="center">
+﻿<div align="center">
 
 # 计费罗盘 · Billing Compass
 
@@ -63,7 +63,7 @@
 ### 方式一:bundle 安装(推荐)
 
 ```bash
-git clone https://github.com/OWNER/dsh-billing-compass.git
+git clone https://github.com/wwu328763-netizen/dsh-billing-compass.git
 ```
 
 在 Harness 里让 Agent 用 `plugin_manager` 安装该目录(或你自己在设置里装),然后**重启 Harness**:
