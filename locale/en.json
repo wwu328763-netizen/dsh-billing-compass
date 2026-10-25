@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Billing Compass",
+    "description": "Shows your DeepSeek balance, official usage and spend per model, and a live cost estimate for the current run under the composer."
+  }
+}

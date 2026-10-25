@@ -1,0 +1,20 @@
+# 计费罗盘 · Billing Compass
+# 这一行把插件注册进当前 profile。config 全部可选:
+#   balanceKeyRef / platformTokenRef  凭据名(默认 DEEPSEEK_API_KEY / DEEPSEEK_USER_TOKEN)
+#   balanceIntervalMs                 余额刷新间隔(默认 30000)
+#   officialIntervalMs                官网用量/消费刷新间隔(默认 300000)
+#   retryIntervalMs                   失败/未配置时的重试间隔(默认 30000)
+#   sessionLog                        是否解析本地会话日志做"整段对话"统计(默认 true)
+#   pricing                           单价覆盖,单位 USD / 1M tokens
+- insert:
+    - id: dsh-billing-compass
+      name: dsh-billing-compass
+      config: {}
+# 需要自定义时,把 config 换成例如:
+#      config:
+#        balanceKeyRef: MY_DEEPSEEK_KEY
+#        pricing:
+#          deepseek-v4-flash:
+#            input: 0.28
+#            cacheHit: 0.028
+#            output: 0.42
