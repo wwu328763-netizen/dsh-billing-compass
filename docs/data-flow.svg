@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 560" width="1120" height="560" role="img" aria-label="Billing Compass data flow">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#7aaaff"/>
+    </marker>
+    <style>
+      .bg { fill: #171a1f; }
+      .box { fill: #22252b; stroke: #2f3540; stroke-width: 1; }
+      .boxHi { fill: #1e2633; stroke: #3d5a92; stroke-width: 1.2; }
+      .boxAccent { fill: #24304a; stroke: #4a6ea8; stroke-width: 1.2; }
+      .t { fill: #e6e9ef; font-family: "Segoe UI","Microsoft YaHei",system-ui,sans-serif; font-size: 14px; }
+      .tBold { fill: #ffffff; font-family: "Segoe UI","Microsoft YaHei",system-ui,sans-serif; font-size: 15px; font-weight: 600; }
+      .tDim { fill: #98a1b2; font-family: "Segoe UI","Microsoft YaHei",system-ui,sans-serif; font-size: 12.5px; }
+      .tMono { fill: #a9b6cc; font-family: "Cascadia Mono",Consolas,monospace; font-size: 12px; }
+      .tCap { fill: #7aaaff; font-family: "Segoe UI","Microsoft YaHei",system-ui,sans-serif; font-size: 12px; font-weight: 600; letter-spacing: .08em; }
+      .flow { fill: none; stroke: #7aaaff; stroke-width: 1.4; opacity: .85; marker-end: url(#arrow); }
+    </style>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1120" height="560" rx="14"/>
+  <text class="tCap" x="28" y="34">DATA FLOW · 数据流</text>
+  <text class="tDim" x="1092" y="34" text-anchor="end">零依赖:node:https + node:zlib</text>
+
+  <text class="tCap" x="28" y="70" fill="#98a1b2">数据源</text>
+
+  <rect class="box" x="28" y="82" width="252" height="58" rx="10"/>
+  <text class="tBold" x="44" y="105">DeepSeek API</text>
+  <text class="tDim" x="264" y="105" text-anchor="end">api key</text>
+  <text class="tMono" x="44" y="125">/user/balance</text>
+
+  <rect class="box" x="28" y="152" width="252" height="58" rx="10"/>
+  <text class="tBold" x="44" y="175">Platform 用量</text>
+  <text class="tDim" x="264" y="175" text-anchor="end">登录 token</text>
+  <text class="tMono" x="44" y="195">/usage/amount</text>
+
+  <rect class="box" x="28" y="222" width="252" height="58" rx="10"/>
+  <text class="tBold" x="44" y="245">Platform 消费</text>
+  <text class="tDim" x="264" y="245" text-anchor="end">登录 token</text>
+  <text class="tMono" x="44" y="265">/usage/export → zip</text>
+
+  <rect class="box" x="28" y="292" width="252" height="58" rx="10"/>
+  <text class="tBold" x="44" y="315">会话日志(只读)</text>
+  <text class="tDim" x="264" y="315" text-anchor="end">本地</text>
+  <text class="tMono" x="44" y="335">session.vN.jsonl.zstd</text>
+
+  <rect class="box" x="28" y="362" width="252" height="58" rx="10"/>
+  <text class="tBold" x="44" y="385">llm/stream 拦截</text>
+  <text class="tDim" x="264" y="385" text-anchor="end">仅内存</text>
+  <text class="tMono" x="44" y="405">usage × 内置单价</text>
+
+  <!-- 宿主半边 -->
+  <rect class="boxHi" x="356" y="82" width="252" height="338" rx="14"/>
+  <text class="tCap" x="376" y="110">HOST · lib/index.js</text>
+  <text class="t" x="376" y="145">HTTPS 拉取 + 重试自愈</text>
+  <text class="t" x="376" y="181">ZIP 中央目录 → inflate → CSV</text>
+  <text class="t" x="376" y="217">zstd 逐帧解码 → 汇总 usage</text>
+  <text class="t" x="376" y="253">内存 calls[] 环形截断 3000</text>
+  <text class="t" x="376" y="289">凭据:env → 服务 → 文件</text>
+  <text class="tDim" x="376" y="327">不写盘 · 会话日志只读</text>
+  <rect class="boxAccent" x="376" y="348" width="212" height="50" rx="9"/>
+  <text class="tMono" x="392" y="369">GET /api/dsh-billing</text>
+  <text class="tDim" x="392" y="388">一次返回完整快照</text>
+
+  <!-- 客户端 -->
+  <rect class="boxHi" x="812" y="82" width="280" height="212" rx="14"/>
+  <text class="tCap" x="832" y="110">CLIENT · lib/client.js</text>
+  <text class="t" x="832" y="145">输入框下方统计条</text>
+  <text class="t" x="832" y="179">点一下 → 弹出面板</text>
+  <text class="t" x="832" y="213">与「对话框」同宽同位</text>
+  <text class="tDim" x="832" y="247">整段用量用 useProjection</text>
+  <text class="tDim" x="832" y="267">(tokenUsage / sessionStats)</text>
+
+  <rect class="boxAccent" x="812" y="320" width="280" height="100" rx="14"/>
+  <text class="tCap" x="832" y="348">UI · 宿主原生风格</text>
+  <text class="tDim" x="832" y="374">单一 DeepSeek 蓝 + 中性灰</text>
+  <text class="tDim" x="832" y="396">无渐变 / 无光晕 / 无多彩</text>
+  <text class="tDim" x="832" y="410">深色与浅色主题自动适配</text>
+
+  <!-- 连线 -->
+  <path class="flow" d="M280 111 C 314 111, 322 140, 356 150"/>
+  <path class="flow" d="M280 181 C 314 181, 322 181, 356 181"/>
+  <path class="flow" d="M280 251 C 314 251, 322 218, 356 214"/>
+  <path class="flow" d="M280 321 C 314 321, 322 250, 356 250"/>
+  <path class="flow" d="M280 391 C 314 391, 322 300, 356 288"/>
+
+  <path class="flow" d="M608 373 C 712 373, 712 190, 812 190"/>
+  <text class="tDim" x="700" y="272" text-anchor="middle">JSON</text>
+
+  <!-- 底部说明 -->
+  <text class="tDim" x="28" y="486">余额 30s · 官网用量/消费 5min · 失败或未配置 30s 重试</text>
+  <text class="tDim" x="28" y="512">「本次运行」与「整段对话」为估算,以官网账单为准</text>
+  <text class="tDim" x="1092" y="486" text-anchor="end">MIT · dsh-billing-compass</text>
+</svg>
