@@ -1,4 +1,4 @@
-﻿<div align="center">
+<div align="center">
 
 # 计费罗盘 · Billing Compass
 
