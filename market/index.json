@@ -1,4 +1,4 @@
-{
+﻿{
   "format": 1,
   "title": {
     "en": "DSH community market",
@@ -52,7 +52,7 @@
           "source": {
             "type": "git",
             "url": "https://github.com/wwu328763-netizen/dsh-billing-compass",
-            "commit": "69f07e95c13598a918848daf6db6138e97dcd300"
+            "commit": "0374e534c76c8512551f6ea77d3683f72869a8eb"
           }
         }
       ]
