@@ -60,7 +60,23 @@
 
 ## 安装
 
-### 方式一:预构建包(最快,无需构建)
+### 方式一:npm(推荐)
+
+[![npm](https://img.shields.io/npm/v/dsh-billing-compass)](https://www.npmjs.com/package/dsh-billing-compass)
+
+```bash
+dsh plugin add dsh-billing-compass
+```
+
+或在 Harness 里:
+
+```
+plugin_manager  action=install_bundle  target=dsh-billing-compass
+```
+
+国内网络会自动走已同步的 `registry.npmmirror.com`。装完**重启 Harness**。
+
+### 方式二:预构建包(无需 npm)
 
 从 [Releases](https://github.com/wwu328763-netizen/dsh-billing-compass/releases/latest) 下载 `dsh-billing-compass.tgz`,然后:
 
@@ -74,9 +90,7 @@ plugin_manager  action=install_bundle  target=<下载后的 tgz 绝对路径>
 plugin_manager  action=install_bundle  target=https://github.com/wwu328763-netizen/dsh-billing-compass/releases/latest/download/dsh-billing-compass.tgz
 ```
 
-装完**重启 Harness**。
-
-### 方式二:从源码目录装
+### 方式三:从源码目录装
 
 ```bash
 git clone https://github.com/wwu328763-netizen/dsh-billing-compass.git
@@ -86,7 +100,7 @@ git clone https://github.com/wwu328763-netizen/dsh-billing-compass.git
 plugin_manager  action=install_bundle  target=<克隆下来的绝对路径>
 ```
 
-### 方式三:手工放置
+### 方式四:手工放置
 
 1. 复制整个目录到 `<DSH_HOME>/profiles/node_modules/dsh-billing-compass/`
 2. 在**当前生效 profile** 的 `cordis.patch.yml` 追加:
@@ -103,7 +117,7 @@ plugin_manager  action=install_bundle  target=<克隆下来的绝对路径>
 
 > 宿主的 JS 模块在进程内被缓存,**改代码或首次安装都必须重启**;客户端改动刷新页面即可。
 
-### 方式四:通过「插件市场 / Discover」添加
+### 方式五:通过「插件市场 / Discover」添加
 
 本仓库自带一份 **format 1** 市场索引,加进任何人的插件市场即可看到并安装本插件:
 
