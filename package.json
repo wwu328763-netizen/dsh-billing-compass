@@ -35,10 +35,14 @@
     "locale/en.json",
     "locale/zh.json",
     "icon.svg",
+    "screenshots.json",
     "README.md",
     "LICENSE",
     "docs"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"
