@@ -175,6 +175,16 @@ async function clientTest() {
     assert.equal(typeof registered, 'function');
   });
 
+  check('shared CSS rule does not leak layout props into the panel', () => {
+    const selector = '.dskc-anchor, .dskc-panel {';
+    const at = source.indexOf(selector);
+    assert.ok(at >= 0, 'shared CSS rule missing');
+    const block = source.slice(at, source.indexOf('}', at + selector.length));
+    assert.ok(!/align-items/.test(block), 'align-items leaked into the shared rule');
+    assert.ok(!/display:/.test(block), 'display leaked into the shared rule');
+    assert.ok(source.includes('const VERSION = '), 'version marker missing');
+  });
+
   const element = registered({ sessionId: 'smoke', ctx: componentCtx, useProjection: () => undefined });
   const tree = element.type({ ...element.props, useProjection: () => undefined });
   const trigger = tree.children.find((child) => child && child.props && String(child.props.className || '').includes('dskc-trigger'));
