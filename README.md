@@ -128,8 +128,7 @@ https://raw.githubusercontent.com/wwu328763-netizen/dsh-billing-compass/main/mar
 
 1. 启用实验性市场 bundle `@deepseek-ai/dsh-experimental-plugin-market-bundle`(默认关闭)
 2. 设置 → 插件 → **Discover** → 添加索引,粘贴上面的地址
-3. 在本插件条目上点安装(底层是
-   `git+https://github.com/wwu328763-netizen/dsh-billing-compass.git#<commit>`)
+3. 在本插件条目上点安装(索引里的 1.0.1 走 npm 通道,底层是 `dsh-billing-compass@1.0.1`;也支持 commit-pinned 的 git 源)
 4. **重启 Harness**
 
 > DSH 目前**没有集中托管的官方市场**:market 只是一个"读索引"的客户端,索引谁托管都行。
@@ -262,6 +261,7 @@ node tools/serve-market-index.mjs   # 本地起市场索引,给 Discover 添加 
 
 ### 1.0.1
 
+- **已发布到 npm**:`dsh-billing-compass@1.0.1`(最新版),市场索引 1.0.1 同步指向 npm 通道
 - **修复面板定位**:改用 `react-dom` 的 `createPortal` 挂到 `document.body`,面板不再被 composer 容器的 `transform/overflow` 偏移或裁切;以宿主稳定的 `[data-composer-card]` 量取输入框卡片,做到同左、同宽、上方 10px,并跟随输入框/窗口尺寸变化
 - 打开前先算位置,避免首帧闪现;位置计算用 rAF 合并、坐标不变时不重渲染
 - 后台标签页暂停轮询,切回前台立即补拉;请求不叠加,手动刷新增 busy 状态

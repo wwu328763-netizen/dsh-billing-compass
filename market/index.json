@@ -67,11 +67,9 @@
       "versions": [
         {
           "version": "1.0.1",
-          "publishTimestamp": 1794323603,
+          "publishTimestamp": 1794326453,
           "source": {
-            "type": "git",
-            "url": "https://github.com/wwu328763-netizen/dsh-billing-compass",
-            "commit": "4e18e08e1eef0c1ee92764e55bc73f6bd2dc55ea"
+            "type": "npm"
           }
         },
         {
