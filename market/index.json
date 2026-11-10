@@ -11,15 +11,24 @@
   "metadata": {
     "categories": {
       "observability": {
-        "title": { "en": "Usage & billing", "zh": "用量与账单" }
+        "title": {
+          "en": "Usage & billing",
+          "zh": "用量与账单"
+        }
       }
     },
     "labels": {
       "official-data": {
-        "title": { "en": "Official data source", "zh": "官方数据源" }
+        "title": {
+          "en": "Official data source",
+          "zh": "官方数据源"
+        }
       },
       "zero-dependency": {
-        "title": { "en": "Zero dependency", "zh": "零依赖" }
+        "title": {
+          "en": "Zero dependency",
+          "zh": "零依赖"
+        }
       }
     }
   },
@@ -31,8 +40,8 @@
         "zh": "计费罗盘"
       },
       "description": {
-        "en": "DeepSeek balance, official usage and spend per model, plus a live cost estimate, in a popover above the composer.",
-        "zh": "在输入框上方弹出面板,显示 DeepSeek 余额、官网各模型用量与消费,以及本次运行的实时费用估算。"
+        "en": "DeepSeek balance, official usage and spend per model, plus a live cost estimate, in a popover that matches the composer width and sits right above it.",
+        "zh": "输入框上方的计费面板（与输入框同宽对齐）：DeepSeek 余额、官网各模型用量与消费、本次运行与整段对话的费用估算。"
       },
       "icon": "icon.svg",
       "author": "wwu328763-netizen",
@@ -42,10 +51,29 @@
       },
       "metadata": {
         "category": "observability",
-        "keywords": ["deepseek", "billing", "usage", "cost", "balance", "tokens"],
-        "labels": ["official-data", "zero-dependency"]
+        "keywords": [
+          "deepseek",
+          "billing",
+          "usage",
+          "cost",
+          "balance",
+          "tokens"
+        ],
+        "labels": [
+          "official-data",
+          "zero-dependency"
+        ]
       },
       "versions": [
+        {
+          "version": "1.0.1",
+          "publishTimestamp": 1794323603,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/wwu328763-netizen/dsh-billing-compass",
+            "commit": "4e18e08e1eef0c1ee92764e55bc73f6bd2dc55ea"
+          }
+        },
         {
           "version": "1.0.0",
           "publishTimestamp": 1792963853,
