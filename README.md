@@ -233,6 +233,10 @@ npm run check   # node --check 涓や釜鍗婅竟鐨勮娉?npm test        # 
 鑷涓嶈仈缃戙€佷笉璇荤湡瀹炲嚟鎹?涓存椂鎶?`DSH_HOME` 鎸囧悜绌虹洰褰?,鍙互鍦?CI 閲岃窇銆?
 ## 鏇存柊鏃ュ織
 
+### 1.0.3
+
+- **修复 1.0.2 的布局回归**：主题变量共用规则误把 position/display/align-items 布局属性带进了 .dskc-panel，面板子元素继承 lign-items:center 后整体居中（标题跑到中间、内容不撑满）；布局属性现在只作用于 .dskc-anchor，面板内容恢复左对齐/整宽
+
 ### 1.0.2
 
 - **修复 1.0.1 回归**：panel 用 portal 挂到 `document.body` 后，只声明在 `.dskc-anchor` 上的主题变量（品牌蓝、文字色、描边、hover）不再继承进面板，导致面板变成全灰白；现在变量同时挂在 `.dskc-panel` 上
