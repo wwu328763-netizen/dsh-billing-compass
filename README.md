@@ -233,6 +233,13 @@ npm run check   # node --check 涓や釜鍗婅竟鐨勮娉?npm test        # 
 鑷涓嶈仈缃戙€佷笉璇荤湡瀹炲嚟鎹?涓存椂鎶?`DSH_HOME` 鎸囧悜绌虹洰褰?,鍙互鍦?CI 閲岃窇銆?
 ## 鏇存柊鏃ュ織
 
+### 1.0.4
+
+- **自动获取余额(需手动同意)**:检测到 DSH 已登录 DeepSeek 账号时,面板出现带进场/微光/勾选动画的同意卡片;点「允许自动获取」后余额改用 DSH 账号钱包(充值 + 赠送),点「暂不」则完全退回手动凭据
+- 同意状态只在浏览器本地存储;路由通过 `auto=1` 显式授权,关闭即停止读取账号数据;账号不可用时自动回退 `DEEPSEEK_API_KEY`
+- 尝试过复用 DSH 账号的平台登录态拉官网用量/消费,但官网接口会以 `Authorization Failed (invalid token)` 拒绝,因此**官网数据仍需手动 `DEEPSEEK_USER_TOKEN`**;失败会静默回退并在面板注明
+- 新增加载骨架、刷新旋转、同意卡片动效(均遵守 `prefers-reduced-motion`)
+
 ### 1.0.3
 
 - **修复 1.0.2 的布局回归**：主题变量共用规则误把 position/display/align-items 布局属性带进了 .dskc-panel，面板子元素继承 lign-items:center 后整体居中（标题跑到中间、内容不撑满）；布局属性现在只作用于 .dskc-anchor，面板内容恢复左对齐/整宽
