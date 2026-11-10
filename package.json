@@ -1,10 +1,10 @@
 {
   "name": "dsh-billing-compass",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "DeepSeek 计费罗盘:余额、官网用量/消费、按模型花费与实时拦截估算,显示在 DeepSeek Harness 输入框下方的统计条里。",
   "type": "module",
   "license": "MIT",
-  "author": "",
+  "author": "wwu328763-netizen",
   "repository": {
     "type": "git",
     "url": "https://github.com/wwu328763-netizen/dsh-billing-compass.git"
@@ -56,5 +56,9 @@
         "@deepseek-ai/dsh-client-ui-conversation"
       ]
     }
+  },
+  "scripts": {
+    "check": "node --check lib/index.js && node --check lib/client.js",
+    "test": "node tools/smoke.mjs"
   }
 }

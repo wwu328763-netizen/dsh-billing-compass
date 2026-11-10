@@ -1,4 +1,4 @@
-﻿<div align="center">
+<div align="center">
 
 # 计费罗盘 · Billing Compass
 
@@ -32,7 +32,8 @@
 | **本次运行** | 本次进程启动以来的调用次数 / tokens / 估算费用 | 本地拦截 `llm/stream` 的 usage |
 
 - 触发行:`● 余额 ¥9.56 · 官网消费 ¥252.48 · 本对话 $8.47 · 263.8M tokens ▼`
-- 面板宽度与位置**与输入框卡片完全一致**,不是浮在中间的窄条
+- 面板宽度与位置**与输入框卡片完全一致**(同左、同宽、贴在输入框上方 10px),不是浮在中间的窄条;窗口缩放、输入框变高时实时跟随
+- 面板通过 portal 挂在 `document.body` 上,不会被 composer 容器的 transform/overflow 裁切(1.0.1 修复)
 - 当前正在使用的模型会在列表里高亮(D 品牌蓝)
 
 ## 数据流
@@ -185,7 +186,10 @@ refs:
 |---|---|
 | **官方接口并行**,不再串行 | 4 个请求(用量×2 + 消费×2):1282ms → **904ms**(冷 TLS;热连接更低) |
 | **HTTPS keep-alive 连接池** | 余额每 30s 一次,跳过重复 TLS 握手 |
+| **凭据解析缓存**(30s) | 路由与抓取不再重复读 `.credentials.yaml` / 问 credentials 服务 |
 | **会话日志移出请求路径** | 路由响应 **0–1ms**;日志由后台间隔增量刷新 |
+| **面板位置计算节流** | 滚动/缩放时 rAF 合并 + 坐标未变不重渲染 |
+| **后台页暂停轮询** | 页面不可见时停止 10s 轮询,切回前台立刻补一次 |
 
 会话日志是**只追加**的多帧 zstd 流,因此:
 
@@ -226,6 +230,7 @@ refs:
 | "本对话消费(整段)" 与"本次运行"相同 | Node < 22.15 不支持 zstd,或 `sessionLog: false` |
 | 面板位置/宽度不对 | 该 Harness 版本的输入框 DOM 变了,欢迎提 issue 并附版本号 |
 | 改了代码不生效 | 宿主模块被缓存,**重启 Harness**;客户端改动刷新页面 |
+| 面板位置/宽度仍不对 | 1.0.1 已适配 0.2.2-rc.1;若更早/更新的 Harness 改了输入框 DOM,附版本号提 issue |
 
 ## 目录结构
 
@@ -236,9 +241,37 @@ cordis.patch.yml   bundle 注册行(含可选项说明)
 locale/{en,zh}.json  插件管理里显示的标题与描述
 icon.svg           应用图标
 docs/              README 用图
+tools/smoke.mjs    零依赖自检(宿主路由 + 客户端注册 + 市场索引检查)
+tools/serve-market-index.mjs  本地市场索引服务(路径相对仓库,可直接运行)
+market/            format 1 市场索引与 awesome-list 条目
 ```
 
 调试图中数据:`GET http://127.0.0.1:<port>/api/dsh-billing?sessionId=<id>` 直接返回完整快照。
+
+## 开发与自检
+
+```bash
+npm run check   # node --check 两个半边的语法
+npm test        # 离线自检:宿主 apply/路由快照、客户端模块注册、市场索引字段
+node tools/serve-market-index.mjs   # 本地起市场索引,给 Discover 添加 http://127.0.0.1:8799/index.json
+```
+
+自检不联网、不读真实凭据(临时把 `DSH_HOME` 指向空目录),可以在 CI 里跑。
+
+## 更新日志
+
+### 1.0.1
+
+- **修复面板定位**:改用 `react-dom` 的 `createPortal` 挂到 `document.body`,面板不再被 composer 容器的 `transform/overflow` 偏移或裁切;以宿主稳定的 `[data-composer-card]` 量取输入框卡片,做到同左、同宽、上方 10px,并跟随输入框/窗口尺寸变化
+- 打开前先算位置,避免首帧闪现;位置计算用 rAF 合并、坐标不变时不重渲染
+- 后台标签页暂停轮询,切回前台立即补拉;请求不叠加,手动刷新增 busy 状态
+- 键盘可达性:打开时焦点进面板,Esc 关闭并把焦点还给触发行
+- 宿主侧:凭据解析增加 30s 缓存,路由诊断不再每次读文件;市场索引服务脚本改为路径无关
+- 新增零依赖 `npm test` 自检与 `npm run check`
+
+### 1.0.0
+
+- 首个 npm 版本:余额、官网用量/消费、按模型花费、本次运行与整段对话费用估算
 
 ## License
 
