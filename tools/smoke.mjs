@@ -68,6 +68,8 @@ async function hostTest() {
       assert.ok(body.pricing['deepseek-v4-flash']);
       assert.ok(body.account && typeof body.account.available === 'boolean');
       assert.equal(body.account.consent, false);
+      assert.ok(body.session && body.session.children && typeof body.session.children.count === 'number');
+      assert.equal(typeof body.session.subagentTotal, 'number');
       assert.ok(body.diag && typeof body.diag.zstd === 'boolean');
       assert.equal(body.diag.platformToken, false);
       assert.ok(body.diag.timing);
