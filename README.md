@@ -233,6 +233,13 @@ npm run check   # node --check 涓や釜鍗婅竟鐨勮娉?npm test        # 
 鑷涓嶈仈缃戙€佷笉璇荤湡瀹炲嚟鎹?涓存椂鎶?`DSH_HOME` 鎸囧悜绌虹洰褰?,鍙互鍦?CI 閲岃窇銆?
 ## 鏇存柊鏃ュ織
 
+### 1.0.7
+
+- **新增更新检测**:启动 5s 后查一次 npm dist-tags,之后每 6 小时(可配置)检查一次;不阻塞面板,失败静默
+- 发现新版本时面板顶部出现更新卡片(带入场动画):显示当前/最新版本、可复制升级命令 `dsh plugin add dsh-billing-compass@latest`、跳转更新说明;footer 显示「vX.Y.Z 可更新」徽标
+- 「忽略此版本」只记在浏览器本地(`dsh.billingCompass.dismissedUpdate`),不打扰后续使用
+- 配置项 `updateCheck` / `updateCheckIntervalMs`;关闭 `sessionLog` 或离线时不影响其它功能
+
 ### 1.0.6
 
 - **统计子代理/子智能体消费**:「本对话消费(整段)」现在会把当前会话下所有子代理/子智能体会话的日志消费(含嵌套层级)一并计入

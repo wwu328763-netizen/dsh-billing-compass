@@ -38,7 +38,7 @@ async function hostTest() {
       get() { return undefined; },
       webServer: { register(route) { routes.push(route); return () => {}; } },
     };
-    plugin.apply(ctx, { sessionLog: false, balanceIntervalMs: 600000, officialIntervalMs: 600000, retryIntervalMs: 600000 });
+    plugin.apply(ctx, { sessionLog: false, updateCheck: false, balanceIntervalMs: 600000, officialIntervalMs: 600000, retryIntervalMs: 600000 });
     check('host registers /api/dsh-billing route', () => {
       assert.equal(routes.length, 1);
       assert.equal(routes[0].path, '/api/dsh-billing');
@@ -70,6 +70,7 @@ async function hostTest() {
       assert.equal(body.account.consent, false);
       assert.ok(body.session && body.session.children && typeof body.session.children.count === 'number');
       assert.equal(typeof body.session.subagentTotal, 'number');
+      assert.ok(body.update && typeof body.update.hasUpdate === 'boolean');
       assert.ok(body.diag && typeof body.diag.zstd === 'boolean');
       assert.equal(body.diag.platformToken, false);
       assert.ok(body.diag.timing);
