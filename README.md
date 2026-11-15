@@ -93,7 +93,9 @@ dsh plugin add link:<本目录绝对路径>
         balanceKeyRef: DEEPSEEK_API_KEY      # 余额凭据名
         platformTokenRef: DEEPSEEK_USER_TOKEN # 官网用量/消费凭据名
         balanceIntervalMs: 30000             # 余额刷新间隔
-        officialIntervalMs: 300000           # 官网用量/消费刷新间隔
+        officialIntervalMs: 300000           # 官网用量刷新间隔
+        costIntervalMs: 1800000              # 官网消费导出刷新间隔(较重)
+        cacheDir: C:/Users/me/.dsh/cache/dsh-billing-compass  # 可选
         retryIntervalMs: 30000               # 失败重试间隔
         sessionLog: true                     # 是否解析本地会话日志
         cnHolidays: []                       # 额外的中国法定节假日 YYYY-MM-DD（这些日期全天按空闲价）
@@ -113,6 +115,13 @@ dsh plugin add link:<本目录绝对路径>
 - 会话日志只读解析，不改写任何文件
 
 ## 更新日志
+
+### 1.1.0
+
+- **冷启动提速**：官网用量/消费结果写入 `$DSH_HOME/cache/dsh-billing-compass`，启动先读磁盘缓存再后台刷新，不再等 20s 的消费导出 zip
+- **会话汇总缓存**：已解析的会话 totals 落盘；重启后只解码日志尾部新增帧（实测 log 解析 789ms → 14ms）
+- **刷新节奏拆分**：官网用量默认 5 分钟、消费默认 30 分钟；消费失败不再每 30s 重试 20s 的 zip 导出；新增 `costIntervalMs` / `cacheDir` 配置
+- 路由首帧等待缓存加载（通常 <20ms），实测首帧 151ms、热请求 18–20ms
 
 ### 1.0.9
 

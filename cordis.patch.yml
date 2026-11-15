@@ -2,7 +2,9 @@
 # 这一行把插件注册进当前 profile。config 全部可选:
 #   balanceKeyRef / platformTokenRef  凭据名(默认 DEEPSEEK_API_KEY / DEEPSEEK_USER_TOKEN)
 #   balanceIntervalMs                 余额刷新间隔(默认 30000)
-#   officialIntervalMs                官网用量/消费刷新间隔(默认 300000)
+#   officialIntervalMs                官网用量刷新间隔(默认 300000)
+#   costIntervalMs                    官网消费导出刷新间隔(默认 1800000,zip 较重)
+#   cacheDir                          磁盘缓存目录(默认 $DSH_HOME/cache/dsh-billing-compass)
 #   retryIntervalMs                   失败/未配置时的重试间隔(默认 30000)
 #   sessionLog                        是否解析本地会话日志做"整段对话"统计(默认 true)
 #   cnHolidays                        额外的中国法定节假日 YYYY-MM-DD(全天按空闲价)
