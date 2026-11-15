@@ -73,6 +73,10 @@ async function hostTest() {
       assert.equal(typeof body.session.subagentTotal, 'number');
       assert.ok(body.session.team && Array.isArray(body.session.team.members));
       assert.ok(body.update && typeof body.update.hasUpdate === 'boolean');
+      assert.ok(body.pricingMode && body.pricingMode.currency === 'CNY');
+      assert.equal(body.fx, 1);
+      assert.equal(body.pricing['deepseek-flash'].offPeak.cacheHit, 0.02);
+      assert.equal(body.pricing['deepseek-flash'].peak.cacheHit, 0.04);
       assert.ok(body.diag && typeof body.diag.zstd === 'boolean');
       assert.equal(body.diag.platformToken, false);
       assert.ok(body.diag.timing);
