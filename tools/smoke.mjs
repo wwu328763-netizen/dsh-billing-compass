@@ -69,7 +69,9 @@ async function hostTest() {
       assert.ok(body.account && typeof body.account.available === 'boolean');
       assert.equal(body.account.consent, false);
       assert.ok(body.session && body.session.children && typeof body.session.children.count === 'number');
+      assert.ok(Array.isArray(body.session.children.members));
       assert.equal(typeof body.session.subagentTotal, 'number');
+      assert.ok(body.session.team && Array.isArray(body.session.team.members));
       assert.ok(body.update && typeof body.update.hasUpdate === 'boolean');
       assert.ok(body.diag && typeof body.diag.zstd === 'boolean');
       assert.equal(body.diag.platformToken, false);
@@ -195,6 +197,8 @@ async function clientTest() {
     assert.ok(trigger, 'trigger element missing');
     assert.equal(trigger.props['aria-expanded'], 'false');
     const text = JSON.stringify(trigger);
+    assert.ok(text.includes('¥'), 'trigger must display the yuan sign');
+    assert.ok(!text.includes('$'), 'trigger must not display the dollar sign');
     assert.ok(text.includes('余额'));
     assert.ok(text.includes('官网消费'));
   });
