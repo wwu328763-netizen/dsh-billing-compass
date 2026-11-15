@@ -116,6 +116,10 @@ dsh plugin add link:<本目录绝对路径>
 
 ## 更新日志
 
+### 1.1.1
+
+- 与 1.1.0 相同的缓存/提速代码；重新发布以避开 npm CDN 对 1.1.0 tarball 的缓存 404，保证 `dsh plugin add` 可正常安装
+
 ### 1.1.0
 
 - **冷启动提速**：官网用量/消费结果写入 `$DSH_HOME/cache/dsh-billing-compass`，启动先读磁盘缓存再后台刷新，不再等 20s 的消费导出 zip
